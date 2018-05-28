@@ -33,11 +33,10 @@ const t2 = parseInt(args[1], 10);
 
 if (isNaN(t1) || isNaN(t2) || t1 < 1 || t2 < 1 
 		|| t1 > 100000 || t2 > 100000) {
-	console.log('Недопустимые входные параметры');
+	//console.log('Недопустимые входные параметры');
 	process.exit();
 }
 
-console.log(t1, t2);
 
 let sumt = t1 + t2;
 
@@ -47,7 +46,7 @@ sumt = Math.floor(sumt / 60);
 const mins = sumt % 60; 
 const hours = Math.floor(sumt / 60);
 
-console.log(hours, mins, secs);
+//console.log(hours, mins, secs);
 
 
 let out_result = num_ending(hours, 'час','часа','часов');
@@ -60,7 +59,9 @@ let s_o = num_ending(secs, 'секунда','секунды','секунд');
 
 out_result = (out_result +  " " + s_o).trim();
 
-console.log(out_result);
+//console.log(out_result);
+
+process.stdout.write(out_result);
 
 function num_ending(num, single_end, triple_end, more_end ) {
 	if (num <= 0) return "";
