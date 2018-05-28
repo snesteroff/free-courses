@@ -27,15 +27,57 @@ if (slice_start == 0) {
 
 const args = process.argv.slice(slice_start);
 
-const base_a = parseInt(args[1]);
-const base_b = parseInt(args[2]);
-const i_num = args[0].trim();
+const base_a = parseInt(args[1],10);
+const base_b = parseInt(args[2],10);
+const i_num = args[0].trim().toUpperCase();
 
-if (i_num.length > 5 || i_num.length<1 || 
-	base_a < 1 || base_a > 100 || 
-	base_b < 1 || base_b > 100) {
+if (i_num.length > 6 || i_num.length<1 || 
+	base_a <= 1 || base_a > 100 || 
+	base_b <= 1 || base_b > 100 || 
+	isNaN(base_a) || isNaN(base_b) ) {
 	process.exit();
 }
 
-process.stdout.write(`A = ${base_a}, B = ${base_b}, num = ${i_num}`);
-console.log('');
+const BASE = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+console.log(`A = ${base_a}, B = ${base_b}, num = ${i_num}`);
+
+//if (base_a == base_b) {
+//	console.log(`Out result = ${i_num}`);
+//	process.exit();
+//}
+
+let mid_number = 0;
+let pos_cnt = 1;
+for (let c of i_num) {
+	console.log(c);
+	let pos_num = BASE.indexOf(c);
+	if (pos_num < 0 || pos_num >= base_a) {
+		console.log(`Bad Input ${c} at position ${pos_cnt}`);
+		process.exit();
+	} else {
+		//console.log(`${mid_number} and ${pos_num}`);
+	}
+	mid_number = mid_number * base_a + pos_num;
+	pos_cnt++;
+} /*
+mid_number = parseInt(i_num, base_a);
+
+if (isNaN(mid_number)) {
+	console.log(`Bad Input number ${i_num} not in ${base_a}-radix`);
+	process.exit();
+}*/
+console.log(`Mid number = ${mid_number}`);
+
+let cycle_cnt = 0;
+let out_result = '';
+while (mid_number > 0 && cycle_cnt < 10) {
+	let rest_num = mid_number % base_b;
+	mid_number = Math.floor(mid_number / base_b);
+	let c = ' ';
+	if (rest_num < 36) {
+		c = BASE[rest_num];
+	}
+	out_result = c + out_result; 
+	cycle_cnt++;
+}
+console.log(`Out result ${out_result}`);
