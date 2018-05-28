@@ -40,31 +40,33 @@ const YEAR_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30 , 31];
 const mon_idx = YEAR.indexOf(i_month);
 
 if ( mon_idx < 0) {
-	console.log(`Error in month name: ${i_month}`);
+//	console.log(`Error in month name: ${i_month}`);
 	process.exit();
 }
-
-if (isNaN(i_day) || i_day < 1 || i_day > YEAR_DAYS[mon_idx]) {
-	console.log(`Bad number of days ${i_day} for month ${i_month}`);
-	process.exit();
-}
-
 if (isNaN(i_year) || i_year < 1 || i_year > 2999) {
-	console.log(`Bad year ${i_year}`);
+//	console.log(`Bad year ${i_year}`);
 	process.exit();
 }
 
 const is_leap_year = (i_year % 4 == 0) && (i_year % 100 != 0 || i_year % 400 == 0);
 
-console.log(`Leap year ${is_leap_year}`);
+//console.log(`Leap year ${is_leap_year}`);
 
 if (is_leap_year) {
 	// So much for CONST
 	YEAR_DAYS[1] = 29;
 }
 
-let year_day = YEAR_DAYS.slice(mon_idx);
-console.log(year_day.reduce(
+if (isNaN(i_day) || i_day < 1 || i_day > YEAR_DAYS[mon_idx]) {
+//	console.log(`Bad number of days ${i_day} for month ${i_month}`);
+	process.exit();
+}
+
+
+const year_day = YEAR_DAYS.slice(mon_idx);
+const out_result = year_day.reduce(
 		(acc, mdays, idx ,arr) => (acc + mdays)
-	) - i_day);
+	) - i_day;
+
+process.stdout.write(`${out_result}`);
 
