@@ -23,23 +23,43 @@ if (process.argv.length == 4) {
 	slice_start = 2;
 }
 if (slice_start == 0) {
-	process.exit();
+	// Надо ли печатать 0 секунд, если не введены параметры??
+//	process.exit();
 }
 
 const args = process.argv.slice(slice_start);
 
-const t1 = parseInt(args[0], 10);
-const t2 = parseInt(args[1], 10);
+let t1 = parseInt(args[0], 10);
+let t2 = parseInt(args[1], 10);
 
-if (isNaN(t1) || isNaN(t2) || t1 < 1 || t2 < 1 
-		|| t1 > 100000 || t2 > 100000) {
+if (isNaN(t1) || t1 < 1 
+		|| t1 > 100000) {
+	if (t1 > 100000) {
+		process.exit();
+	} else {
+		t1 = 0;
+	}
 	//console.log('Недопустимые входные параметры');
-	process.exit();
+	//process.exit();
 }
 
+if (isNaN(t2) || t2 < 1 
+	 || t2 > 100000) {
+	if (t2 > 100000) {
+		process.exit();
+	} else {
+		t2 = 0;
+	}
+	//console.log('Недопустимые входные параметры');
+	// process.exit();
+}
 
 let sumt = t1 + t2;
 
+if (sumt == 0) {
+	process.stdout.write(`0 секунд`);
+	process.exit();
+}
 const secs = sumt % 60;
 sumt = Math.floor(sumt / 60);
 
