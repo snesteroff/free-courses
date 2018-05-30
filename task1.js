@@ -31,7 +31,7 @@ const base_a = parseInt(args[1],10);
 const base_b = parseInt(args[2],10);
 const i_num = args[0].trim().toUpperCase();
 
-if (i_num.length > 6 || i_num.length<1 || 
+if (i_num.length > 60 || i_num.length<1 || 
 	base_a <= 1 || base_a > 100 || 
 	base_b <= 1 || base_b > 100 || 
 	isNaN(base_a) || isNaN(base_b) ) {
@@ -47,17 +47,17 @@ let pos_cnt = 1;
 for (let c of i_num) {
 	let pos_num = BASE.indexOf(c);
 	if (pos_num < 0 || pos_num >= base_a) {
-		// console.log(`Bad Input ${c} at position ${pos_cnt}`);
+		 //console.log(`Bad Input ${c} at position ${pos_cnt}`);
 		process.exit();
 	} 
 	mid_number = mid_number * base_a + pos_num;
 	pos_cnt++;
 } 
-// console.log(`Mid number = ${mid_number}`);
+ //console.log(`Mid number = ${mid_number}`);
 
 let cycle_cnt = 0;
 let out_result = '';
-while (mid_number > 0 && cycle_cnt < 10) {
+while (mid_number > 0 && cycle_cnt < 1000) {
 	let rest_num = mid_number % base_b;
 	mid_number = Math.floor(mid_number / base_b);
 	let c = ' ';
